@@ -1,4 +1,4 @@
-module github.com/evrone/go-clean-template
+module vladmsnk/taskrec
 
 go 1.17
 
