@@ -3,27 +3,19 @@ package usecase
 
 import (
 	"context"
+	"vladmsnk/taskrec/internal/dto"
 
 	"vladmsnk/taskrec/internal/entity"
 )
 
-//go:generate mockgen -source=interfaces.go -destination=./mocks_test.go -package=usecase_test
-
 type (
-	// Translation -.
-	Translation interface {
-		Translate(context.Context, entity.Translation) (entity.Translation, error)
-		History(context.Context) ([]entity.Translation, error)
+	// Selection -.
+	Selection interface {
+		PostActivity(context.Context, dto.PostActivityRequest) error
 	}
 
-	// TranslationRepo -.
-	TranslationRepo interface {
-		Store(context.Context, entity.Translation) error
-		GetHistory(context.Context) ([]entity.Translation, error)
-	}
-
-	// TranslationWebAPI -.
-	TranslationWebAPI interface {
-		Translate(entity.Translation) (entity.Translation, error)
+	// SelectionRepo -.
+	SelectionRepo interface {
+		Store(context.Context, entity.Activity) error
 	}
 )

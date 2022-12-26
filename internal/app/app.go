@@ -13,7 +13,6 @@ import (
 	v1 "vladmsnk/taskrec/internal/controller/http/v1"
 	"vladmsnk/taskrec/internal/usecase"
 	"vladmsnk/taskrec/internal/usecase/repo"
-	"vladmsnk/taskrec/internal/usecase/webapi"
 	"vladmsnk/taskrec/pkg/httpserver"
 	"vladmsnk/taskrec/pkg/logger"
 	"vladmsnk/taskrec/pkg/postgres"
@@ -31,14 +30,13 @@ func Run(cfg *config.Config) {
 	defer pg.Close()
 
 	// Use case
-	translationUseCase := usecase.New(
+	SelectionUseCase := usecase.New(
 		repo.New(pg),
-		webapi.New(),
 	)
 
 	// HTTP Server
 	handler := gin.New()
-	v1.NewRouter(handler, l, translationUseCase)
+	v1.NewRouter(handler, l, SelectionUseCase)
 	httpServer := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 
 	// Waiting signal
