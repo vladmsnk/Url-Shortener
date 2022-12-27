@@ -30,7 +30,7 @@ func (r *SelectionRepo) Store(ctx context.Context, t entity.Activity) error {
 		Values(uuid.New(), t.Title, t.Description, t.Price, t.AvailableFrom, t.AvailableTo, time.Now()).
 		ToSql()
 	if err != nil {
-		return fmt.Errorf("TranslationRepo - Store - r.Builder: %w", err)
+		return fmt.Errorf("Selectionnepo - Store - r.Builder: %w", err)
 	}
 
 	_, err = r.Pool.Exec(ctx, sql, args...)

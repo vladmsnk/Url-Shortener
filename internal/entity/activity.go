@@ -2,7 +2,10 @@
 // HTTP response objects if suitable. Each logic group entities in own file.
 package entity
 
-import "github.com/jackc/pgtype"
+import (
+	"github.com/jackc/pgtype"
+	"time"
+)
 
 // Activity -.
 type Activity struct {
@@ -10,6 +13,6 @@ type Activity struct {
 	Title         string      `db:"s_title"`
 	Description   string      `db:"description"`
 	Price         float64     `db:"original"`
-	AvailableFrom string      `db:"available_from"`
-	AvailableTo   string      `db:"available_to"`
+	AvailableFrom time.Time   `db:"available_from"`
+	AvailableTo   time.Time   `db:"available_to"`
 }

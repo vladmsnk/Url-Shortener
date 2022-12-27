@@ -18,7 +18,7 @@ func (p PostActivityRequest) FromDto() entity.Activity {
 		Title:         p.Title,
 		Description:   p.Description,
 		Price:         p.Price,
-		AvailableFrom: p.AvailableFrom.String(),
-		AvailableTo:   p.AvailableTo.String(),
+		AvailableFrom: p.AvailableFrom,
+		AvailableTo:   p.AvailableTo,
 	}
 }
