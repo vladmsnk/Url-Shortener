@@ -12,10 +12,12 @@ type (
 	// Selection -.
 	Selection interface {
 		PostActivity(context.Context, dto.PostActivityRequest) error
+		GetSelection(ctx context.Context) error
 	}
 
 	// SelectionRepo -.
 	SelectionRepo interface {
 		Store(context.Context, entity.Activity) error
+		GetRandomActivities(ctx context.Context) ([]entity.Activity, error)
 	}
 )

@@ -3,6 +3,7 @@ package repo
 import (
 	"context"
 	"fmt"
+	"github.com/jackc/pgx/v4"
 	"time"
 
 	"github.com/google/uuid"
@@ -39,4 +40,26 @@ func (r *SelectionRepo) Store(ctx context.Context, t entity.Activity) error {
 	}
 
 	return nil
+}
+
+func (r *SelectionRepo) GetRandomActivities(ctx context.Context) ([]entity.Activity, error) {
+	tx, _ := r.Pool.BeginTx(ctx, pgx.TxOptions{})
+	rows, err := tx.Query(ctx, SelectRandomActivities)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var activities []entity.Activity
+	for rows.Next() {
+		var activity entity.Activity
+		err := rows.Scan(&activity.ID, &activity.Title, &activity.Description, &activity.Price, &activity.AvailableFrom,
+			&activity.AvailableTo)
+		if err != nil {
+			tx.Rollback(ctx)
+			return nil, err
+		}
+		activities = append(activities, activity)
+	}
+	tx.Commit(ctx)
+	return activities, nil
 }
