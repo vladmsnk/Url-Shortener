@@ -46,6 +46,7 @@ func (r *selectionRoutes) postActivity(c *gin.Context) {
 
 func (r *selectionRoutes) getSelection(c *gin.Context) {
 	var selection dto.GetSelectionResponse
+	r.t.GetSelection(c.Request.Context())
 
 	c.JSON(http.StatusOK, selection)
 }

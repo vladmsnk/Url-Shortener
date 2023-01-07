@@ -26,3 +26,9 @@ func (uc *SelectionUseCase) PostActivity(ctx context.Context, request dto.PostAc
 	}
 	return nil
 }
+
+// GetSelection -.
+func (uc *SelectionUseCase) GetSelection(ctx context.Context) (dto.GetSelectionResponse, error) {
+	var selection dto.GetSelectionResponse
+
+}
