@@ -26,7 +26,7 @@ func newTranslationRoutes(handler *gin.RouterGroup, t usecase.Selection, l logge
 }
 
 func (r *selectionRoutes) postActivity(c *gin.Context) {
-	var activity dto.PostActivityRequest
+	var activity dto.ActivityDTO
 
 	if err := c.ShouldBindJSON(&activity); err != nil {
 		r.l.Error(err, "http - v1 - doTranslate")
