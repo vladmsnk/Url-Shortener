@@ -11,11 +11,14 @@ import (
 type (
 	// Selection -.
 	Selection interface {
-		PostActivity(context.Context, dto.PostActivityRequest) error
+		PostActivity(context.Context, dto.ActivityDTO) error
+		GetSelection(ctx context.Context) error
 	}
 
 	// SelectionRepo -.
 	SelectionRepo interface {
 		Store(context.Context, entity.Activity) error
+		GetRandomActivities(ctx context.Context) ([]entity.Activity, error)
+		StoreSelection(ctx context.Context, title string, activitiesIDs []entity.Activity) error
 	}
 )

@@ -18,14 +18,15 @@ type selectionRoutes struct {
 func newTranslationRoutes(handler *gin.RouterGroup, t usecase.Selection, l logger.Interface) {
 	r := &selectionRoutes{t, l}
 
-	h := handler.Group("/selection")
+	h := handler.Group("/")
 	{
 		h.POST("/activity", r.postActivity)
+		h.GET("selection")
 	}
 }
 
 func (r *selectionRoutes) postActivity(c *gin.Context) {
-	var activity dto.PostActivityRequest
+	var activity dto.ActivityDTO
 
 	if err := c.ShouldBindJSON(&activity); err != nil {
 		r.l.Error(err, "http - v1 - doTranslate")
@@ -41,4 +42,11 @@ func (r *selectionRoutes) postActivity(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, activity)
+}
+
+func (r *selectionRoutes) getSelection(c *gin.Context) {
+	var selection dto.GetSelectionResponse
+	r.t.GetSelection(c.Request.Context())
+
+	c.JSON(http.StatusOK, selection)
 }
