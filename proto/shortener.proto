@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto_url;
+
+option go_package = "proto/pb/";
+
+service UrlShortener {
+  rpc CreateURL(LongURL) returns (ShortURL);
+
+  rpc GetURL(ShortURL) returns (LongURL);
+}
+
+message LongURL {
+  string longURL = 1;
+}
+
+message ShortURL {
+  string shortURL = 1;
+}
