@@ -1,8 +1,8 @@
-package repo
+package body
 
 const (
 	InsertCreatedURL = `
-	INSERT INTO urls (long_url, short_url, created_at) VALUES $1, $2. $3;
+	INSERT INTO urls (long_url, short_url, created_at) VALUES ($1, $2, $3);
 	`
 
 	SelectLongURLByShortURL = `

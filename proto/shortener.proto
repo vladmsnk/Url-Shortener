@@ -4,16 +4,34 @@ package proto_url;
 
 option go_package = "proto/pb/";
 
-service UrlShortener {
-  rpc CreateURL(LongURL) returns (ShortURL);
 
-  rpc GetURL(ShortURL) returns (LongURL);
+import "google/api/annotations.proto";
+
+
+service UrlShortener {
+  rpc CreateURL(CreateURLRequest) returns (CreateURLResponse);
+
+  rpc GetURL(GetURLRequest) returns (GetURLResponse) {
+    option (google.api.http) = {
+      get: "/{shortURL}"
+    };
+  }
 }
 
-message LongURL {
+message CreateURLRequest {
   string longURL = 1;
 }
 
-message ShortURL {
+message CreateURLResponse {
   string shortURL = 1;
+  string longURL = 2;
+}
+
+message GetURLRequest {
+  string shortURL = 1;
+}
+
+message GetURLResponse {
+  string shortURL = 1;
+  string longURL = 2;
 }

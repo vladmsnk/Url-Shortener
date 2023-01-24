@@ -2,86 +2,50 @@ package repo
 
 import (
 	"context"
-	"fmt"
-	"github.com/jackc/pgx/v4"
 	"time"
-
-	"github.com/google/uuid"
-	"github.com/lib/pq"
-	"vladmsnk/taskrec/internal/entity"
+	"vladmsnk/taskrec/internal/body"
 	"vladmsnk/taskrec/pkg/postgres"
 )
 
-const _defaultEntityCap = 64
-
-// SelectionRepo -.
-type SelectionRepo struct {
+// Repo -.
+type Repo struct {
 	*postgres.Postgres
 }
 
 // New -.
-func New(pg *postgres.Postgres) *SelectionRepo {
-	return &SelectionRepo{pg}
+func New(pg *postgres.Postgres) *Repo {
+	return &Repo{pg}
 }
 
-// Store -.
-func (r *SelectionRepo) Store(ctx context.Context, t entity.Activity) error {
-	sql, args, err := r.Builder.
-		Insert("activities").
-		Columns("id, s_title, description, price, available_from, available_to, created_at").
-		Values(uuid.New(), t.Title, t.Description, t.Price, t.AvailableFrom, t.AvailableTo, time.Now()).
-		ToSql()
+// StoreURL -.
+func (r *Repo) StoreURL(ctx context.Context, longURL, shortURL string) error {
+	_, err := r.Pool.Exec(ctx, body.InsertCreatedURL, longURL, shortURL, time.Now())
 	if err != nil {
-		return fmt.Errorf("Selectionnepo - Store - r.Builder: %w", err)
+		return err
 	}
-
-	_, err = r.Pool.Exec(ctx, sql, args...)
-	if err != nil {
-		return fmt.Errorf("TranslationRepo - Store - r.Pool.Exec: %w", err)
-	}
-
 	return nil
 }
 
-func (r *SelectionRepo) GetRandomActivities(ctx context.Context) ([]entity.Activity, error) {
-	rows, err := r.Pool.Query(ctx, SelectRandomActivities)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
+// GetLongURL -.
+func (r *Repo) GetLongURL(ctx context.Context, shortURL string) (string, error) {
+	var longURL string
 
-	var activities []entity.Activity
-	for rows.Next() {
-		var activity entity.Activity
-		err := rows.Scan(&activity.ID, &activity.Title, &activity.Description, &activity.Price, &activity.AvailableFrom,
-			&activity.AvailableTo)
-		if err != nil {
-			return nil, err
-		}
-		activities = append(activities, activity)
+	err := r.Pool.QueryRow(ctx, body.SelectLongURLByShortURL, shortURL).Scan(&longURL)
+	if err != nil {
+		return "", err
 	}
-	return activities, nil
+
+	return longURL, err
 }
 
-func (r *SelectionRepo) StoreSelection(ctx context.Context, title string, activitiesIDs []uuid.UUID) error {
-	selectionID := uuid.New()
-	userID := uuid.New()
-	tx, err := r.Pool.BeginTx(ctx, pgx.TxOptions{})
+// GetShortURL -.
+func (r *Repo) GetShortURL(ctx context.Context, longURL string) (string, error) {
+	var short string
+
+	err := r.Pool.QueryRow(ctx, body.SelectShortURLByLongURL, longURL).Scan(&short)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	_, err = r.Pool.Exec(ctx, InsertSelection, selectionID, userID, title, time.Now())
-	if err != nil {
-		tx.Rollback(ctx)
-		return err
-	}
-
-	_, err = r.Pool.Exec(ctx, InsertActivitiesForSelection, selectionID, pq.Array(activitiesIDs))
-	if err != nil {
-		tx.Rollback(ctx)
-		return err
-	}
-	tx.Commit(ctx)
-	return nil
+	return short, err
 }

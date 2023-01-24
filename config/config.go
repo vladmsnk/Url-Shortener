@@ -10,7 +10,7 @@ type (
 	// Config -.
 	Config struct {
 		App  `yaml:"app"`
-		HTTP `yaml:"http"`
+		GRPc `yaml:"grpc"`
 		Log  `yaml:"logger"`
 		PG   `yaml:"postgres"`
 	}
@@ -21,9 +21,11 @@ type (
 		Version string `env-required:"true" yaml:"version" env:"APP_VERSION"`
 	}
 
-	// HTTP -.
-	HTTP struct {
-		Port string `env-required:"true" yaml:"port" env:"HTTP_PORT"`
+	// GRPc -.
+	GRPc struct {
+		Port     string `env-required:"true" yaml:"port" env:"GRPC_PORT"`
+		Host     string `env-required:"true" yaml:"host" env:"GRPC_HOST"`
+		RestPort string `env-required:"true" yaml:"rest_port" env:"REST_PORT"`
 	}
 
 	// Log -.
@@ -38,11 +40,10 @@ type (
 	}
 )
 
-// NewConfig returns app config.
 func NewConfig() (*Config, error) {
 	cfg := &Config{}
 
-	err := cleanenv.ReadConfig("./config/config.yml", cfg)
+	err := cleanenv.ReadConfig("../config/config.yml", cfg)
 	if err != nil {
 		return nil, fmt.Errorf("config error: %w", err)
 	}

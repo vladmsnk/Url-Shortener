@@ -1,13 +1,15 @@
 app:
-  name: 'go-clean-template'
+  name: 'url-shortener'
   version: '1.0.0'
 
-http:
-  port: '8080'
+grpc:
+  host: 'localhost'
+  port: 9000
+  rest_port: 8080
 
 logger:
   log_level: 'debug'
-  rollbar_env: 'go-clean-template'
+  rollbar_env: 'url-shortener'
 
 postgres:
   pool_max: 2
