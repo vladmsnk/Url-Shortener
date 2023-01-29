@@ -10,11 +10,6 @@ import (
 	"vladmsnk/taskrec/config"
 )
 
-type GRPCConfig struct {
-	Host string `yaml:"host"`
-	Port int    `yaml:"port"`
-}
-
 type GRPCServer struct {
 	Ser  *grpc.Server
 	Addr string
