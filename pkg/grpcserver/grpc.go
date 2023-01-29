@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"net"
 	"net/http"
-	"vladmsnk/taskrec/config"
+	"vladmsnk/urlshort/config"
 )
 
 type GRPCServer struct {

@@ -1,4 +1,4 @@
-module vladmsnk/taskrec
+module vladmsnk/urlshort
 
 go 1.19
 

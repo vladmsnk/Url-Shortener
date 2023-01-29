@@ -5,10 +5,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"net/url"
-	"vladmsnk/taskrec/config"
-	"vladmsnk/taskrec/internal/usecase"
-	"vladmsnk/taskrec/pkg/grpcserver"
-	"vladmsnk/taskrec/proto/pb"
+	"vladmsnk/urlshort/config"
+	"vladmsnk/urlshort/internal/usecase"
+	"vladmsnk/urlshort/pkg/grpcserver"
+	"vladmsnk/urlshort/proto/pb"
 )
 
 type URLServer struct {

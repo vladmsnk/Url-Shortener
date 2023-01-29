@@ -10,14 +10,14 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"vladmsnk/taskrec/config"
-	"vladmsnk/taskrec/internal/usecase"
-	"vladmsnk/taskrec/internal/usecase/repo"
-	"vladmsnk/taskrec/pkg/grpcserver"
-	"vladmsnk/taskrec/pkg/logger"
-	"vladmsnk/taskrec/pkg/postgres"
-	"vladmsnk/taskrec/pkg/service"
-	"vladmsnk/taskrec/proto/pb"
+	"vladmsnk/urlshort/config"
+	"vladmsnk/urlshort/internal/usecase"
+	"vladmsnk/urlshort/internal/usecase/repo"
+	"vladmsnk/urlshort/pkg/grpcserver"
+	"vladmsnk/urlshort/pkg/logger"
+	"vladmsnk/urlshort/pkg/postgres"
+	"vladmsnk/urlshort/pkg/service"
+	"vladmsnk/urlshort/proto/pb"
 )
 
 func Run(cfg *config.Config) {

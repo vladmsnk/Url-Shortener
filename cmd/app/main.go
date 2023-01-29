@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
-	"vladmsnk/taskrec/config"
-	"vladmsnk/taskrec/internal/app"
+	"vladmsnk/urlshort/config"
+	"vladmsnk/urlshort/internal/app"
 )
 
 func main() {

@@ -3,8 +3,8 @@ package repo
 import (
 	"context"
 	"time"
-	"vladmsnk/taskrec/internal/body"
-	"vladmsnk/taskrec/pkg/postgres"
+	"vladmsnk/urlshort/internal/body"
+	"vladmsnk/urlshort/pkg/postgres"
 )
 
 // Repo -.
