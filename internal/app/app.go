@@ -48,7 +48,7 @@ func runRest(cfg config.GRPc) {
 
 	mux := runtime.NewServeMux(runtime.WithForwardResponseOption(grpcserver.ResponseHeaderMatcher))
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := pb.RegisterUrlShortenerHandlerFromEndpoint(ctx, mux, fmt.Sprintf("%s:%s", cfg.Host, cfg.Port), opts)
+	err := pb.RegisterUrlShortenerHandlerFromEndpoint(ctx, mux, fmt.Sprintf(":%s", cfg.Port), opts)
 	if err != nil {
 		panic(err)
 	}

@@ -1,7 +1,6 @@
-//go:build tools
-// +build tools
+//go:build tool
 
-package proto
+package app
 
 import (
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"

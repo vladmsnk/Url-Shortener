@@ -24,7 +24,6 @@ type (
 	// GRPc -.
 	GRPc struct {
 		Port     string `env-required:"true" yaml:"port" env:"GRPC_PORT"`
-		Host     string `env-required:"true" yaml:"host" env:"GRPC_HOST"`
 		RestPort string `env-required:"true" yaml:"rest_port" env:"REST_PORT"`
 	}
 

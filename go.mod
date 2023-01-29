@@ -3,7 +3,6 @@ module vladmsnk/taskrec
 go 1.19
 
 require (
-	github.com/Eun/go-hit v0.5.23
 	github.com/Masterminds/squirrel v1.5.2
 	github.com/golang-migrate/migrate/v4 v4.15.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0

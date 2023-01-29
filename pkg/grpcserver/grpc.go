@@ -25,13 +25,12 @@ func NewGRPCServer(cfg *config.GRPc, opts ...grpc.ServerOption) (*GRPCServer, er
 
 	comp := &GRPCServer{
 		Ser:  grpc.NewServer(opts...),
-		Addr: fmt.Sprintf("%s:%s", cfg.Host, cfg.Port),
+		Addr: fmt.Sprintf(":%s", cfg.Port),
 	}
 	var err error
 	if comp.lis, err = net.Listen("tcp", comp.Addr); err != nil {
 		return nil, err
 	}
-
 	return comp, nil
 }
 
