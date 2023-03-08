@@ -1,4 +1,4 @@
-# Url-Shortener
+# Url-Shortener gRPC server
 
 Run locally
 ```
